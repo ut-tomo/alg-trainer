@@ -133,3 +133,14 @@ html, body { max-width: 100%; overflow-x: hidden; }
 .notation-list li { display: list-item; margin: 4px 0; }
 #tk-input { width: 100%; box-sizing: border-box; background: #fff !important; color: #111 !important; border: 2px solid #303e61; border-radius: 8px; padding: 10px; font-family: ui-monospace, Menlo, monospace; font-size: 1em; }
 #tk-input::placeholder { color: #8a94a6 !important; }
+
+/* ---- PLL panel styled like the Takahashi practice box ---- */
+#controls h1 { font-size: 1.8em; margin-bottom: 10px; }
+#controls h2 { font-size: 1.3em; margin: 20px 0 15px 0; padding-bottom: 8px; }
+#controls #status { background: rgba(0,0,0,0.2); padding: 15px; border-radius: 10px; margin-bottom: 15px; }
+#set-select { border: 2px solid #303e61; background: #fff !important; color: #111 !important; }
+#attempt-input { width: 100%; box-sizing: border-box; background: #fff !important; color: #111 !important; border: 2px solid #303e61; border-radius: 8px; padding: 10px; font-family: ui-monospace, Menlo, monospace; font-size: 1em; }
+#attempt-input::placeholder { color: #8a94a6 !important; }
+#controls .info-section, #controls .case-name, #controls .case-group, #controls .case-alg { color: #111 !important; }
+#reveal-btn { width: 100%; padding: 14px; font-size: 1.1em; font-weight: bold; }
+@media (max-width: 1024px) { #controls { max-height: none; padding: 16px; } }

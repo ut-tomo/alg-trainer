@@ -33,21 +33,15 @@
     <main class="main-content">
         <section id="about" class="content-section mode-pll">
             <div class="section-inner">
-                <h2>About</h2>
-                <p>
-                    A trainer for memorizing Rubik's Cube algorithms with spaced repetition (SM-2).
-                    The cube shows a case. Recall the algorithm that solves it, then reveal the answer and rate how well you knew it.
-                    Cases you struggle with come back sooner, and cases you know well come back later.
-                </p>
-                <p>
-                    Notation and colors match the <a href="https://ut-tomo.github.io/rubik-playground/">Rubik's Cube Playground</a>:
-                    algorithms use face turns only (<span class="notation-snippet">U D L R F B</span>), and the U face is white.
-                    Progress is saved in your browser.
-                </p>
-                <p>
-                    Keyboard: <span class="notation-snippet">Space</span> reveals the alg,
-                    <span class="notation-snippet">1</span>–<span class="notation-snippet">4</span> rate it Again / Hard / Good / Easy.
-                </p>
+                <h2>PLL</h2>
+                <h3>How it works</h3>
+                <ul class="notation-list">
+                    <li>The cube shows a PLL case. Recall the algorithm that solves it.</li>
+                    <li><b>Reveal</b> (Space) shows the answer.</li>
+                    <li>Rate how well you knew it: Again / Hard / Good / Easy (keys 1–4).</li>
+                    <li>Cases you struggle with come back sooner. Progress is saved in your browser.</li>
+                </ul>
+                <p class="note">Notation is the same as New Takahashi; algorithms use face turns only.</p>
             </div>
         </section>
 
@@ -75,13 +69,7 @@
             </div>
         </section>
 
-        <section id="train" class="content-section demo-section mode-pll">
-            <div class="section-inner">
-                <h2>Train</h2>
-                <p id="set-description"></p>
-            </div>
-        </section>
-
+<p id="set-description" class="hidden"></p>
         <div id="loading">
             <h1>Loading Alg Trainer...</h1>
             <p id="loading-status">Initializing...</p>
@@ -132,7 +120,7 @@
             </div>
 
             <div id="controls" class="mode-pll">
-                <h1>Let's Train</h1>
+                <h1>Practice</h1>
 
                 <div class="input-group">
                     <select id="set-select"></select>

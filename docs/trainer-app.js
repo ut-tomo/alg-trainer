@@ -88,7 +88,7 @@ function renderCaseList() {
         el.onclick = () => {
             trainer.select(c.index);
             showCase();
-            $('train').scrollIntoView({ behavior: 'smooth' });
+            $('app').scrollIntoView({ behavior: 'smooth' });
         };
         list.appendChild(el);
     }
