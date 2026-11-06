@@ -139,9 +139,9 @@ function renderOps() {
     }
     group('Triggers');
     const tpl = wasm.takahashiTemplates(style());
-    for (const t of tpl.slice(0, 4)) add(`${t.name}: ${t.rel}`, t.rel, () => rel(t.rel, t.name), t.id, 'wide');
+    for (const t of tpl.filter((t) => t.id === 'rt' || t.id === 'lt')) add(`${t.name}: ${t.rel}`, t.rel, () => rel(t.rel, t.name), t.id, 'wide');
     group('Algorithms');
-    for (const t of tpl.slice(4)) add(t.name, t.rel, () => rel(t.rel, t.name), t.id, 'wide');
+    for (const t of tpl.filter((t) => t.id !== 'rt' && t.id !== 'lt')) add(t.name, t.rel, () => rel(t.rel, t.name), t.id, 'wide');
 }
 
 function scramble() {

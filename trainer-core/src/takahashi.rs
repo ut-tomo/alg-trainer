@@ -121,9 +121,7 @@ pub fn templates(style: TriggerStyle) -> Vec<(&'static str, &'static str, &'stat
     match style {
         TriggerStyle::Trigger => {
             v.push(("rt", "Right trigger", "U R U' R'"));
-            v.push(("rti", "Right trigger (inverse)", "R U R' U'"));
             v.push(("lt", "Left trigger", "U' L' U L"));
-            v.push(("lti", "Left trigger (inverse)", "L' U' L U"));
         }
         TriggerStyle::Sexy => {
             v.push(("rs", "Right trigger + U'", "R U R' U'"));
@@ -255,7 +253,7 @@ fn stage_ops(st: Stage, style: TriggerStyle) -> Vec<Op> {
             return v;
         }
         Stage::FirstLayer => match style {
-            TriggerStyle::Trigger => &["rt", "rti", "lt", "lti"],
+            TriggerStyle::Trigger => &["rt", "lt"],
             TriggerStyle::Sexy => &["rs", "ls"],
         },
         Stage::SecondLayer => &["e2r", "e2l"],
