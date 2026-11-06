@@ -21,11 +21,6 @@
         <div class="header-content">
             <h1 class="site-title">Rubik's Cube Alg Trainer</h1>
         </div>
-        <nav class="site-nav">
-            <a href="#about">About</a>
-            <a href="#train">Train</a>
-            <a href="#cases">Cases</a>
-        </nav>
     </header>
     <div class="mode-bar">
         <label for="mode-select">Practice:</label>
@@ -61,37 +56,22 @@
             <div class="section-inner">
                 <h2>New Takahashi method</h2>
                 <h3>Notation</h3>
-                <p>Each letter is one face. Turn it <b>clockwise as seen when you look straight at that face</b>.</p>
                 <ul class="notation-list">
-                    <li><span class="notation-snippet">U</span> top (Up)</li>
-                    <li><span class="notation-snippet">D</span> bottom (Down)</li>
-                    <li><span class="notation-snippet">F</span> the face toward you (Front)</li>
-                    <li><span class="notation-snippet">B</span> the back (Back)</li>
-                    <li><span class="notation-snippet">R</span> right side (Right)</li>
-                    <li><span class="notation-snippet">L</span> left side (Left)</li>
+                    <li><span class="notation-snippet">U</span>: turn the top face clockwise</li>
+                    <li><span class="notation-snippet">D</span>: turn the bottom face clockwise</li>
+                    <li><span class="notation-snippet">R</span>: turn the right face clockwise</li>
+                    <li><span class="notation-snippet">L</span>: turn the left face clockwise</li>
+                    <li><span class="notation-snippet">F</span>: turn the front face clockwise</li>
+                    <li><span class="notation-snippet">B</span>: turn the back face clockwise</li>
+                    <li><span class="notation-snippet">'</span> (e.g. <span class="notation-snippet">R'</span>): counterclockwise</li>
+                    <li><span class="notation-snippet">2</span> (e.g. <span class="notation-snippet">R2</span>): half turn</li>
                 </ul>
-                <p>
-                    <span class="notation-snippet">R'</span> (R prime) is the opposite direction, counterclockwise.
-                    <span class="notation-snippet">R2</span> is a half turn. So <span class="notation-snippet">R</span> moves the front of the right face up,
-                    and <span class="notation-snippet">R'</span> moves it down.
-                </p>
-                <div class="action-buttons notation-demo">
-                    <button data-demo="U">U</button><button data-demo="U'">U'</button>
-                    <button data-demo="R">R</button><button data-demo="R'">R'</button>
-                    <button data-demo="L">L</button><button data-demo="L'">L'</button>
-                    <button data-demo="F">F</button><button data-demo="F'">F'</button>
-                </div>
-                <h3>Triggers</h3>
-                <div class="trigger-cards">
-                    <div class="trigger-card">
-                        <h4>Right trigger: <span class="notation-snippet">U R U' R'</span></h4>
-                        <button data-demo="U R U' R'">Show on cube</button>
-                    </div>
-                    <div class="trigger-card">
-                        <h4>Left trigger: <span class="notation-snippet">U' L' U L</span></h4>
-                        <button data-demo="U' L' U L">Show on cube</button>
-                    </div>
-                </div>
+                <p class="note">"Clockwise" means as seen when you look straight at that face.</p>
+                <h3>Triggers: the only operations you have to remember!</h3>
+                <ul class="notation-list triggers">
+                    <li><b>Right trigger</b>: <span class="notation-snippet">U R U' R'</span></li>
+                    <li><b>Left trigger</b>: <span class="notation-snippet">U' L' U L</span></li>
+                </ul>
             </div>
         </section>
 

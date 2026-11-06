@@ -139,9 +139,7 @@ function renderOps() {
     }
     group('Triggers');
     const tpl = wasm.takahashiTemplates(style());
-    for (const t of tpl.filter((t) => t.id === 'rt' || t.id === 'lt')) add(`${t.name}: ${t.rel}`, t.rel, () => rel(t.rel, t.name), t.id, 'wide');
-    group('Algorithms');
-    for (const t of tpl.filter((t) => t.id !== 'rt' && t.id !== 'lt')) add(t.name, t.rel, () => rel(t.rel, t.name), t.id, 'wide');
+    for (const t of tpl.filter((t) => t.id === 'rt' || t.id === 'lt')) add(`${t.name}\n${t.rel}`, t.rel, () => rel(t.rel, t.name), t.id, 'trigger');
 }
 
 function scramble() {
