@@ -26,7 +26,6 @@ function show() {
     const s = wasm.takahashiSuggest(state, style());
     $('tk-stage').textContent = s.stage_label;
     $('tk-status').classList.toggle('solved', s.stage === 'Solved');
-    $('tk-history').textContent = history.map((h) => h.label).join('  ·  ') || '-';
 }
 
 function clearHint() {
