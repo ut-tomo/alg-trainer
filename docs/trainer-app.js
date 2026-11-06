@@ -1,4 +1,5 @@
-import { setupScene, renderState, resetCamera } from './cube-view.js';
+import { setupScene, renderState, resetCamera, setFront } from './cube-view.js';
+import { initTakahashi, enterTakahashi, onModeHook } from './tk-app.js';
 
 let wasm, trainer, setId, revealed = false;
 const $ = (id) => document.getElementById(id);
@@ -143,11 +144,28 @@ function bindUI() {
         nextCase();
     };
     document.addEventListener('keydown', (e) => {
-        if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') return;
+        if (mode !== 'pll' || e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') return;
         if (e.code === 'Space') { e.preventDefault(); setRevealed(true); }
         const g = { Digit1: 0, Digit2: 1, Digit3: 2, Digit4: 3 }[e.code];
         if (g !== undefined) grade(g);
     });
+}
+
+let mode = null;
+function setMode(m) {
+    if (m === mode) return;
+    mode = m;
+    localStorage.setItem('alg-trainer:mode', m);
+    $('mode-select').value = m;
+    document.body.classList.remove('pll', 'takahashi');
+    document.body.classList.add(m);
+    if (m === 'pll') {
+        setFront(0);
+        if (trainer) showCase();
+    } else {
+        enterTakahashi();
+    }
+    window.dispatchEvent(new Event('resize'));
 }
 
 export async function main() {
@@ -163,10 +181,15 @@ export async function main() {
         const view = setupScene($('canvas-container'));
         bindUI();
 
+        initTakahashi(wasm);
+        onModeHook(setMode);
+        $('mode-select').onchange = (e) => setMode(e.target.value);
+
         const last = localStorage.getItem('alg-trainer:last-set');
         const first = wasm.listSets().find((s) => s.id === last)?.id ?? wasm.listSets()[0].id;
         $('set-select').value = first;
         loadSet(first);
+        setMode(localStorage.getItem('alg-trainer:mode') || 'takahashi');
         setTimeout(view.resize, 50);
         updateProgress(100, 'Ready!');
     } catch (error) {

@@ -4,7 +4,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
 let scene, camera, renderer, controls, cubeGroup;
 // Corner positions and color definitions
-const CORNER_POSITIONS = [
+export const CORNER_POSITIONS = [
     { pos: [-1, 1, 1] },   // 0: UFL
     { pos: [1, 1, 1] },    // 1: UFR
     { pos: [1, 1, -1] },   // 2: UBR
@@ -15,7 +15,7 @@ const CORNER_POSITIONS = [
     { pos: [-1, -1, -1] }, // 7: DBL
 ];
 
-const CORNER_BASE_COLORS = [
+export const CORNER_BASE_COLORS = [
     [0, 2, 4],  // 0: UFL (黄・青・赤)
     [0, 4, 3],  // 1: UFR (黄・赤・緑)
     [0, 3, 5],  // 2: UBR (黄・緑・橙)
@@ -26,7 +26,7 @@ const CORNER_BASE_COLORS = [
     [1, 2, 5]   // 7: DBL (白・青・橙)
 ];
 
-const CORNER_POSITION_INFO = [
+export const CORNER_POSITION_INFO = [
     { yFace: 'top', side1: 'left', side2: 'front' },
     { yFace: 'top', side1: 'front', side2: 'right' },
     { yFace: 'top', side1: 'right', side2: 'back' },
@@ -37,7 +37,7 @@ const CORNER_POSITION_INFO = [
     { yFace: 'bottom', side1: 'left', side2: 'back' }
 ];
 
-const EDGE_POSITIONS = [
+export const EDGE_POSITIONS = [
     { pos: [0, 1, 1], faces: [0, 4] },
     { pos: [1, 1, 0], faces: [0, 3] },
     { pos: [0, 1, -1], faces: [0, 5] },
@@ -51,7 +51,7 @@ const EDGE_POSITIONS = [
     { pos: [0, -1, -1], faces: [1, 5] },
     { pos: [-1, -1, 0], faces: [1, 2] },
 ];
-function getCornerColors(cornerIndex, state) {
+export function getCornerColors(cornerIndex, state) {
     const perm = state.corner_perm[cornerIndex];
     const ori = state.corner_ori[cornerIndex];
     const baseColors = CORNER_BASE_COLORS[perm];
@@ -78,7 +78,7 @@ function getCornerColors(cornerIndex, state) {
     return result;
 }
 
-function getEdgeColors(edgeIndex, state) {
+export function getEdgeColors(edgeIndex, state) {
     const perm = state.edge_perm[edgeIndex];
     const ori = state.edge_ori[edgeIndex];
     const originalFaces = EDGE_POSITIONS[perm].faces;
@@ -304,8 +304,17 @@ export function renderState(state) {
     createCubeVisualization(state);
 }
 
+let frontIndex = 0;
+// Rotate the camera so face k (0 F, 1 R, 2 B, 3 L) faces the viewer.
+export function setFront(k) {
+    frontIndex = k;
+    resetCamera();
+}
+
 export function resetCamera() {
-    camera.position.set(3.2, 6, 4.6);
+    let [x, z] = [3.2, 4.6];
+    for (let i = 0; i < frontIndex; i++) [x, z] = [z, -x];
+    camera.position.set(x, 6, z);
     camera.lookAt(0, 0, 0);
     controls.target.set(0, 0, 0);
 }

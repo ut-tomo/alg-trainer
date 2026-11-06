@@ -3,7 +3,7 @@ use serde::Serialize;
 use trainer_core::{builtin_sets, format_alg, parse_alg, pick_next, AlgSet, Card, Grade};
 use wasm_bindgen::prelude::*;
 
-#[derive(Serialize)]
+#[derive(Serialize, serde::Deserialize)]
 struct CubeState {
     corner_perm: Vec<u8>,
     corner_ori: Vec<u8>,
@@ -212,4 +212,69 @@ pub fn state_after(alg: &str) -> Result<JsValue, JsValue> {
 pub fn invert_algorithm(alg: &str) -> Result<String, JsValue> {
     let moves = parse_alg(alg).map_err(|e| JsValue::from_str(&e.to_string()))?;
     Ok(format_alg(&cube_core::invert_alg(&moves)))
+}
+
+// ---------- New Takahashi practice ----------
+
+fn to_cube(v: JsValue) -> Result<Cube, JsValue> {
+    let s: CubeState = serde_wasm_bindgen::from_value(v)?;
+    let mut c = Cube::identity();
+    if s.corner_perm.len() != 8
+        || s.edge_perm.len() != 12
+        || s.corner_ori.len() != 8
+        || s.edge_ori.len() != 12
+    {
+        return Err("bad cube state".into());
+    }
+    c.corner_perm.copy_from_slice(&s.corner_perm);
+    c.corner_ori.copy_from_slice(&s.corner_ori);
+    c.edge_perm.copy_from_slice(&s.edge_perm);
+    c.edge_ori.copy_from_slice(&s.edge_ori);
+    Ok(c)
+}
+
+/// Apply physical notation to a given state.
+#[wasm_bindgen(js_name = applyTo)]
+pub fn apply_to(state: JsValue, alg: &str) -> Result<JsValue, JsValue> {
+    let mut c = to_cube(state)?;
+    for m in parse_alg(alg).map_err(|e| JsValue::from_str(&e.to_string()))? {
+        c.apply_move(m);
+    }
+    Ok(serde_wasm_bindgen::to_value(&CubeState::from(&c))?)
+}
+
+/// Whether a state (e.g. painted on the net) is reachable from solved.
+#[wasm_bindgen(js_name = isLegal)]
+pub fn is_legal(state: JsValue) -> Result<bool, JsValue> {
+    Ok(to_cube(state)?.is_legal())
+}
+
+/// Map an alg written for front = F to front k (0 F, 1 R, 2 B, 3 L).
+#[wasm_bindgen(js_name = mapFront)]
+pub fn map_front(alg: &str, k: usize) -> Result<String, JsValue> {
+    trainer_core::takahashi::map_front(alg, k).map_err(|e| JsValue::from_str(&e))
+}
+
+/// Operation templates (front-relative) for the palette.
+#[wasm_bindgen(js_name = takahashiTemplates)]
+pub fn takahashi_templates(style: &str) -> JsValue {
+    #[derive(Serialize)]
+    struct T {
+        id: &'static str,
+        name: &'static str,
+        rel: &'static str,
+    }
+    let v: Vec<T> = trainer_core::takahashi::templates(trainer_core::takahashi::style_from(style))
+        .into_iter()
+        .map(|(id, name, rel)| T { id, name, rel })
+        .collect();
+    serde_wasm_bindgen::to_value(&v).unwrap()
+}
+
+/// Current stage and the operations to the next milestone.
+#[wasm_bindgen(js_name = takahashiSuggest)]
+pub fn takahashi_suggest(state: JsValue, style: &str) -> Result<JsValue, JsValue> {
+    let c = to_cube(state)?;
+    let s = trainer_core::takahashi::suggest(&c, trainer_core::takahashi::style_from(style));
+    Ok(serde_wasm_bindgen::to_value(&s)?)
 }

@@ -2,9 +2,14 @@
 /* eslint-disable */
 export const memory: WebAssembly.Memory;
 export const __wbg_trainer_free: (a: number, b: number) => void;
+export const applyTo: (a: any, b: number, c: number) => [number, number, number];
 export const invertAlgorithm: (a: number, b: number) => [number, number, number, number];
+export const isLegal: (a: any) => [number, number, number];
 export const listSets: () => any;
+export const mapFront: (a: number, b: number, c: number) => [number, number, number, number];
 export const stateAfter: (a: number, b: number) => [number, number, number];
+export const takahashiSuggest: (a: any, b: number, c: number) => [number, number, number];
+export const takahashiTemplates: (a: number, b: number) => any;
 export const trainer_cases: (a: number) => any;
 export const trainer_current: (a: number) => any;
 export const trainer_currentState: (a: number) => [number, number, number];
@@ -20,6 +25,8 @@ export const trainer_stats: (a: number, b: number) => any;
 export const __wbindgen_malloc: (a: number, b: number) => number;
 export const __wbindgen_realloc: (a: number, b: number, c: number, d: number) => number;
 export const __wbindgen_free: (a: number, b: number, c: number) => void;
+export const __wbindgen_exn_store: (a: number) => void;
+export const __externref_table_alloc: () => number;
 export const __wbindgen_externrefs: WebAssembly.Table;
 export const __externref_table_dealloc: (a: number) => void;
 export const __wbindgen_start: () => void;

@@ -23,3 +23,67 @@
   #app { grid-template-columns: 1fr !important; }
   #canvas-container { min-height: 360px !important; }
 }
+/* mode switching */
+.mode-bar { display: flex; gap: 10px; align-items: center; justify-content: center; padding: 12px; background: #f1f3f5; }
+.mode-bar select { padding: 8px 12px; border-radius: 8px; font-size: 1em; }
+body.takahashi .mode-pll, body.pll .mode-takahashi { display: none !important; }
+.trigger-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.trigger-card { background: #f8f9fa; border-radius: 10px; padding: 14px; }
+.trigger-card h3 { margin-top: 0; color: #303e61; }
+.tk-steps li { margin: 6px 0; }
+.front-buttons button.active, .op-buttons button.suggested { background: #303e61 !important; color: #fff !important; }
+.op-buttons { flex-wrap: wrap; }
+.op-buttons button { flex: 1 1 45%; font-size: 0.85em; padding: 8px 4px; }
+.op-buttons .op-group { flex-basis: 100%; font-size: 0.8em; color: #6c757d; margin-top: 6px; }
+.tk-hint { min-height: 1.2em; }
+.tk-hint .next { font-size: 1.15em; font-weight: bold; color: #303e61; }
+.tk-history { font-size: 0.9em; max-height: 120px; overflow-y: auto; }
+.net { display: grid; grid-template-columns: repeat(12, 28px); grid-auto-rows: 28px; gap: 2px; margin: 12px 0; }
+.net .st { border: 1px solid #333; border-radius: 3px; cursor: pointer; }
+.net .st.center { cursor: default; outline: 2px solid #303e61; }
+.net .lbl { font-size: 0.7em; color: #6c757d; display: flex; align-items: center; justify-content: center; }
+.net-palette { display: flex; gap: 8px; }
+.net-palette .sw { width: 34px; height: 34px; border: 2px solid #333; border-radius: 6px; cursor: pointer; }
+.net-palette .sw.active { outline: 3px solid #303e61; outline-offset: 2px; }
+@media (max-width: 900px) { .trigger-cards { grid-template-columns: 1fr; } }
+
+/* same panel styling for the Takahashi controls */
+#tk-controls {
+    background: #E9ECEF;
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 25px;
+    overflow-y: auto;
+    max-height: 600px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+#tk-controls h1 {
+    font-size: 1.8em;
+    margin-bottom: 10px;
+}
+#tk-controls h2 {
+    font-size: 1.3em;
+    margin: 20px 0 15px 0;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+    padding-bottom: 8px;
+}
+#tk-status {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+#tk-status.solved {
+    background: rgba(0, 255, 0, 0.2);
+}
+@media (max-width: 1024px) {
+  #tk-controls {
+        max-height: none;
+    }
+}
+#tk-controls {
+    color: #fff !important;
+}
+#tk-controls .info-section {
+    color: #111 !important;
+}
