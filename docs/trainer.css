@@ -144,3 +144,6 @@ html, body { max-width: 100%; overflow-x: hidden; }
 #controls .info-section, #controls .case-name, #controls .case-group, #controls .case-alg { color: #111 !important; }
 #reveal-btn { width: 100%; padding: 14px; font-size: 1.1em; font-weight: bold; }
 @media (max-width: 1024px) { #controls { max-height: none; padding: 16px; } }
+
+/* mode picker lives in the page, separate from the header band */
+.mode-bar { margin: 20px 20px 0; border-radius: 12px; background: #E9ECEF !important; }

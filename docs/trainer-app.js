@@ -1,7 +1,9 @@
 import { setupScene, renderState, resetCamera, setFront } from './cube-view.js';
-import { initTakahashi, enterTakahashi, onModeHook } from './tk-app.js';
+import { initTakahashi, enterTakahashi, onModeHook, toPhysical, holdLabel, refreshHold, renderFaceTurns, animateAlg } from './tk-app.js';
 
 let wasm, trainer, setId, revealed = false;
+// the case state the learner is working on, and undo stack
+let pllState = null, pllUndo = [], pllBusy = false;
 const $ = (id) => document.getElementById(id);
 const storageKey = (id) => `alg-trainer:${id}`;
 
@@ -24,7 +26,9 @@ function loadSet(id) {
 
 function showCase() {
     const c = trainer.current();
-    renderState(trainer.currentState());
+    pllState = trainer.currentState();
+    pllUndo = [];
+    renderState(pllState);
     $('case-name').textContent = c.id;
     $('case-group').textContent = c.group;
     $('case-alg').textContent = c.alg;
@@ -94,26 +98,34 @@ function renderCaseList() {
     }
 }
 
-// Apply the learner's alg to the case and check it solves (up to an AUF).
-function tryAttempt() {
-    const c = trainer.current();
-    const attempt = $('attempt-input').value.trim();
-    const out = $('attempt-result');
-    if (!attempt) return;
-    try {
-        const setup = wasm.invertAlgorithm(c.alg);
-        let solved = false, auf = '';
-        for (const u of ['', 'U', 'U2', "U'"]) {
-            const st = wasm.stateAfter(`${setup} ${attempt} ${u}`.trim());
-            if (isSolved(st)) { solved = true; auf = u; break; }
-        }
-        renderState(wasm.stateAfter(`${setup} ${attempt}`));
-        out.textContent = solved ? `✓ Solved${auf ? ` (+ ${auf})` : ''}` : '✗ Not solved';
-        out.className = 'attempt-result ' + (solved ? 'ok' : 'ng');
-    } catch (e) {
-        out.textContent = String(e);
-        out.className = 'attempt-result ng';
+// solved up to a final U turn (AUF)?
+function solvedWithAuf(st) {
+    for (const u of ['', 'U', 'U2', "U'"]) {
+        if (isSolved(u ? wasm.applyTo(st, u) : st)) return { ok: true, auf: u };
     }
+    return { ok: false };
+}
+
+// Apply moves written relative to how the learner holds the cube, then check.
+async function pllApply(rel) {
+    const out = $('attempt-result');
+    if (pllBusy || !rel.trim()) return;
+    let phys;
+    try { phys = toPhysical(rel); } catch (e) { out.textContent = String(e.message || e); out.className = 'attempt-result ng'; return; }
+    pllBusy = true;
+    try {
+        pllUndo.push(pllState);
+        pllState = await animateAlg(pllState, phys);
+        const r = solvedWithAuf(pllState);
+        out.textContent = r.ok ? `✓ Solved${r.auf ? ` (+ ${r.auf})` : ''}` : '';
+        out.className = 'attempt-result ' + (r.ok ? 'ok' : '');
+    } finally { pllBusy = false; }
+}
+
+function tryAttempt() {
+    const v = $('attempt-input').value;
+    $('attempt-input').value = '';
+    pllApply(v);
 }
 
 function isSolved(s) {
@@ -135,7 +147,9 @@ function bindUI() {
     }
     $('attempt-btn').onclick = tryAttempt;
     $('attempt-input').addEventListener('keydown', (e) => { if (e.key === 'Enter') tryAttempt(); });
-    $('show-case-btn').onclick = () => renderState(trainer.currentState());
+    $('show-case-btn').onclick = () => { pllState = trainer.currentState(); pllUndo = []; renderState(pllState); $('attempt-result').textContent = ''; };
+    $('pll-undo').onclick = () => { if (pllUndo.length && !pllBusy) { pllState = pllUndo.pop(); renderState(pllState); $('attempt-result').textContent = ''; } };
+    renderFaceTurns($('pll-ops'), (m) => pllApply(m));
     $('camera-btn').onclick = resetCamera;
     $('reset-btn').onclick = () => {
         if (!confirm('Reset all progress for this set?')) return;
@@ -160,8 +174,8 @@ function setMode(m) {
     document.body.classList.remove('pll', 'takahashi');
     document.body.classList.add(m);
     if (m === 'pll') {
-        setFront(0);
-        if (trainer) showCase();
+        refreshHold();
+        if (trainer) renderState(pllState ?? trainer.currentState());
     } else {
         enterTakahashi();
     }

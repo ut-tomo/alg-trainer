@@ -22,15 +22,15 @@
             <h1 class="site-title">Rubik's Cube Alg Trainer</h1>
         </div>
     </header>
-    <div class="mode-bar">
+
+    <main class="main-content">
+        <div class="mode-bar">
         <label for="mode-select">Practice:</label>
         <select id="mode-select">
             <option value="takahashi">New Takahashi method (beginner, triggers)</option>
             <option value="pll">PLL (spaced repetition)</option>
         </select>
-    </div>
-
-    <main class="main-content">
+        </div>
         <section id="about" class="content-section mode-pll">
             <div class="section-inner">
                 <h2>PLL</h2>
@@ -41,15 +41,13 @@
                     <li>Rate how well you knew it: Again / Hard / Good / Easy (keys 1–4).</li>
                     <li>Cases you struggle with come back sooner. Progress is saved in your browser.</li>
                 </ul>
-                <p class="note">Notation is the same as New Takahashi; algorithms use face turns only.</p>
+                <p class="note">Algorithms use face turns only.</p>
             </div>
         </section>
 
-        <br>
-        <section id="tk-intro" class="content-section mode-takahashi">
+        <section id="notation" class="content-section">
             <div class="section-inner">
-                <h2>New Takahashi method</h2>
-                <h3>Notation</h3>
+                <h2>Notation</h2>
                 <ul class="notation-list">
                     <li><span class="notation-snippet">U</span>: turn the top face clockwise</li>
                     <li><span class="notation-snippet">D</span>: turn the bottom face clockwise</li>
@@ -61,6 +59,12 @@
                     <li><span class="notation-snippet">2</span> (e.g. <span class="notation-snippet">R2</span>): half turn</li>
                 </ul>
                 <p class="note">"Clockwise" means as seen when you look straight at that face.</p>
+            </div>
+        </section>
+
+        <section id="tk-intro" class="content-section mode-takahashi">
+            <div class="section-inner">
+                <h2>New Takahashi method</h2>
                 <h3>Triggers: the only operations you have to remember!</h3>
                 <ul class="notation-list triggers">
                     <li><b>Right trigger</b>: <span class="notation-snippet">U R U' R'</span></li>
@@ -149,12 +153,21 @@
                     <button data-grade="3" class="grade-easy">Easy (4)</button>
                 </div>
 
-                <h2>Check</h2>
+                <h2>Hold the cube</h2>
+                <div class="orient-row">
+                    <label>Top <select id="pll-top"></select></label>
+                    <label>Front <select id="pll-front"></select></label>
+                    <label>Right <select id="pll-right"></select></label>
+                </div>
+
+                <h2>Operations</h2>
+                <div class="action-buttons op-buttons" id="pll-ops"></div>
                 <div class="input-group">
-                    <input type="text" id="attempt-input" placeholder="Type your alg, e.g. R U R' U'" />
+                    <input type="text" id="attempt-input" placeholder="Or type moves, e.g. R U R' U'" />
                     <div class="action-buttons">
-                        <button id="attempt-btn">Apply to case</button>
-                        <button id="show-case-btn">Show case</button>
+                        <button id="attempt-btn">Apply</button>
+                        <button id="pll-undo">Undo</button>
+                        <button id="show-case-btn">Reset case</button>
                     </div>
                     <div id="attempt-result" class="attempt-result"></div>
                 </div>

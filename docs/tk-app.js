@@ -106,10 +106,12 @@ function setHold(t, f) {
     if (f === t || f === opposite(t)) f = [0, 1, 2, 3, 4, 5].find((c) => c !== t && c !== opposite(t));
     front = f;
     const sides = [0, 1, 2, 3, 4, 5].filter((c) => c !== top && c !== opposite(top));
-    fillSelect('tk-top', [0, 1, 2, 3, 4, 5], top);
-    fillSelect('tk-front', sides, front);
-    // right follows from top and front; picking a right color turns the cube instead
-    fillSelect('tk-right', sides.filter((c) => c !== front && c !== opposite(front)), rightColor());
+    for (const p of ['tk', 'pll']) {
+        fillSelect(`${p}-top`, [0, 1, 2, 3, 4, 5], top);
+        fillSelect(`${p}-front`, sides, front);
+        // right follows from top and front; picking a right color turns the cube instead
+        fillSelect(`${p}-right`, sides.filter((c) => c !== front && c !== opposite(front)), rightColor());
+    }
     setView(VEC[LETTERS[top]], VEC[LETTERS[front]]);
 }
 function chooseFront(k) { setHold(0, FRONT_COLOR[k]); }
@@ -270,13 +272,15 @@ export function initTakahashi(w) {
         $('tk-net').scrollIntoView({ behavior: 'smooth' });
     };
     $('tk-scramble').addEventListener('click', () => $('tk-net').classList.add('net-hidden'));
-    $('tk-top').onchange = (e) => setHold(+e.target.value);
-    $('tk-front').onchange = (e) => setHold(top, +e.target.value);
-    // choosing the right color keeps the top and turns the cube so that color is on the right
-    $('tk-right').onchange = (e) => {
-        const r = +e.target.value, u = VEC[LETTERS[top]];
-        setHold(top, LETTERS.indexOf(letterOf(cross(VEC[LETTERS[r]], u))));
-    };
+    for (const p of ['tk', 'pll']) {
+        $(`${p}-top`).onchange = (e) => setHold(+e.target.value);
+        $(`${p}-front`).onchange = (e) => setHold(top, +e.target.value);
+        // choosing the right color keeps the top and turns the cube so that color is on the right
+        $(`${p}-right`).onchange = (e) => {
+            const r = +e.target.value, u = VEC[LETTERS[top]];
+            setHold(top, LETTERS.indexOf(letterOf(cross(VEC[LETTERS[r]], u))));
+        };
+    }
     const typed = () => {
         try {
             const rel = $('tk-input').value.trim();
@@ -321,4 +325,30 @@ export function onModeHook(fn) { setMode = fn; }
 export function enterTakahashi() {
     setHold(top, front);
     show();
+}
+
+// ---- shared with the PLL panel ----
+export { toPhysical, holdLabel };
+export function refreshHold() { setHold(top, front); }
+export function renderFaceTurns(box, onMove) {
+    box.innerHTML = '';
+    for (const f of ['U', 'R', 'L', 'F', 'D', 'B']) {
+        for (const sfx of ['', "'", '2']) {
+            const m = f + sfx, b = document.createElement('button');
+            b.textContent = m;
+            b.className = 'face';
+            b.onclick = () => onMove(m);
+            box.appendChild(b);
+        }
+    }
+}
+// animate a physical alg from state s; returns the final state
+export async function animateAlg(s, alg, animate = true) {
+    for (const m of alg.trim().split(/\s+/).filter(Boolean)) {
+        if (animate) await animateMove(m);
+        s = wasm.applyTo(s, m);
+        renderState(s);
+        if (animate) await sleep(60);
+    }
+    return s;
 }
