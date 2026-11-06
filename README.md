@@ -1,1 +1,1 @@
-https://ut-tomo.github.io/alg-trainer/
+Demo: https://ut-tomo.github.io/alg-trainer/
