@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Alg Trainer</title>
+  <link rel="stylesheet" href="src/style.css">
+  <script type="module" src="https://cdn.cubing.net/v0/js/cubing/twisty"></script>
+</head>
+<body>
+  <header>
+    <h1>Alg Trainer</h1>
+    <select id="set"><option value="pll">PLL</option></select>
+    <span id="stats"></span>
+  </header>
+  <main>
+    <twisty-player id="player" experimental-setup-anchor="end" background="none"
+      control-panel="none" hint-facelets="none"></twisty-player>
+    <p id="case-name"></p>
+    <p id="alg" class="hidden"></p>
+    <div id="controls">
+      <button id="reveal">Reveal (space)</button>
+      <div id="grades" class="hidden">
+        <button data-q="1">Again (1)</button>
+        <button data-q="3">Hard (2)</button>
+        <button data-q="4">Good (3)</button>
+        <button data-q="5">Easy (4)</button>
+      </div>
+    </div>
+  </main>
+  <script type="module" src="src/app.js"></script>
+</body>
+</html>
