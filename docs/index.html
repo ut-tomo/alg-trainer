@@ -60,34 +60,43 @@
         <section id="tk-intro" class="content-section mode-takahashi">
             <div class="section-inner">
                 <h2>New Takahashi method</h2>
+                <h3>Notation</h3>
+                <p>Each letter is one face. Turn it <b>clockwise as seen when you look straight at that face</b>.</p>
+                <ul class="notation-list">
+                    <li><span class="notation-snippet">U</span> top (Up)</li>
+                    <li><span class="notation-snippet">D</span> bottom (Down)</li>
+                    <li><span class="notation-snippet">F</span> the face toward you (Front)</li>
+                    <li><span class="notation-snippet">B</span> the back (Back)</li>
+                    <li><span class="notation-snippet">R</span> right side (Right)</li>
+                    <li><span class="notation-snippet">L</span> left side (Left)</li>
+                </ul>
                 <p>
-                    A layer-by-layer method built around two small moves, the <b>right trigger</b> and the <b>left trigger</b>.
-                    In this trainer the first layer goes on the <b>bottom (D, yellow)</b> and you look at the cube from one side, the <b>front</b>.
-                    Pick the front with the F / R / B / L buttons; every operation is then done relative to that side, just as you'd turn the cube in your hands.
+                    <span class="notation-snippet">R'</span> (R prime) is the opposite direction, counterclockwise.
+                    <span class="notation-snippet">R2</span> is a half turn. So <span class="notation-snippet">R</span> moves the front of the right face up,
+                    and <span class="notation-snippet">R'</span> moves it down.
                 </p>
+                <div class="action-buttons notation-demo">
+                    <button data-demo="U">U</button><button data-demo="U'">U'</button>
+                    <button data-demo="R">R</button><button data-demo="R'">R'</button>
+                    <button data-demo="L">L</button><button data-demo="L'">L'</button>
+                    <button data-demo="F">F</button><button data-demo="F'">F'</button>
+                </div>
+                <h3>Triggers</h3>
                 <div class="trigger-cards">
                     <div class="trigger-card">
-                        <h3>Right trigger: <span class="notation-snippet">R U R'</span></h3>
-                        <p>Right hand: lift the right face up (R), turn the top away from you with your index finger (U), bring the right face back down (R').</p>
-                        <p>It lifts the front-right-bottom corner slot out, turns the top, and puts the slot back. Use it to drop a corner sitting above the <b>front-right</b> slot into place.</p>
-                        <p>Inverse: <span class="notation-snippet">R U' R'</span>. With the extra U' (<span class="notation-snippet">R U R' U'</span>) you can just repeat it until the corner is solved (at most 5 times).</p>
-                        <button data-demo="R U R'">Show on cube</button>
-                        <button data-demo="R U R' U'">Show R U R' U'</button>
+                        <h4>Right trigger: <span class="notation-snippet">U R U' R'</span></h4>
+                        <button data-demo="U R U' R'">Show on cube</button>
                     </div>
                     <div class="trigger-card">
-                        <h3>Left trigger: <span class="notation-snippet">L' U' L</span></h3>
-                        <p>The mirror image with the left hand: lift the left face up (L'), turn the top toward the right with your index finger (U'), bring the left face down (L).</p>
-                        <p>It works the same way for the <b>front-left</b> slot.</p>
-                        <p>Inverse: <span class="notation-snippet">L' U L</span>. Repeating version: <span class="notation-snippet">L' U' L U</span>.</p>
-                        <button data-demo="L' U' L">Show on cube</button>
-                        <button data-demo="L' U' L U">Show L' U' L U</button>
+                        <h4>Left trigger: <span class="notation-snippet">U' L' U L</span></h4>
+                        <button data-demo="U' L' U L">Show on cube</button>
                     </div>
                 </div>
                 <h3>Steps</h3>
                 <ol class="tk-steps">
-                    <li><b>Bottom cross</b>: make the yellow cross on D, matching the side centers. Intuitive, any face turns.</li>
-                    <li><b>First-layer corners</b>: bring each corner above its slot with U, then right or left trigger.</li>
-                    <li><b>Second-layer edges</b>: <span class="notation-snippet">U R U' R' U' F' U F</span> (to the right) or <span class="notation-snippet">U' L' U L U F U' F'</span> (to the left), i.e. a trigger followed by a trigger on the front face.</li>
+                    <li><b>Bottom cross</b> (yellow): intuitive, any face turns.</li>
+                    <li><b>First-layer corners</b>: U to bring a corner above its slot, then right / left trigger.</li>
+                    <li><b>Second-layer edges</b>: <span class="notation-snippet">U R U' R' U' F' U F</span> (right) or <span class="notation-snippet">U' L' U L U F U' F'</span> (left).</li>
                     <li><b>Top cross</b>: <span class="notation-snippet">F R U R' U' F'</span></li>
                     <li><b>Top face</b>: <span class="notation-snippet">R U R' U R U2 R'</span></li>
                     <li><b>Top corners position</b>: <span class="notation-snippet">R' F R' B2 R F' R' B2 R2</span></li>
@@ -118,48 +127,35 @@
 
             <div id="tk-controls" class="mode-takahashi">
                 <h1>Practice</h1>
-
-                <h2>Start</h2>
                 <div class="action-buttons">
-                    <button id="tk-scramble">Random scramble</button>
-                    <button id="tk-paint">Paint the net</button>
-                    <button id="tk-solved">Solved cube</button>
+                    <button id="tk-scramble">Scramble</button>
+                    <button id="tk-paint">Fill the net</button>
+                    <button id="tk-solved">Reset</button>
                 </div>
                 <div id="tk-scramble-text" class="case-alg"></div>
+                <div id="tk-status"><strong>Stage:</strong> <span id="tk-stage">-</span></div>
 
-                <div id="tk-status">
-                    <strong>Stage:</strong> <span id="tk-stage">-</span>
-                </div>
-
-                <h2>Front</h2>
-                <div class="action-buttons front-buttons" id="tk-front">
-                    <button data-front="0" class="active">F</button>
-                    <button data-front="1">R</button>
-                    <button data-front="2">B</button>
-                    <button data-front="3">L</button>
+                <h2>Hold the cube</h2>
+                <div class="orient-row">
+                    <label>Top <select id="tk-top"></select></label>
+                    <label>Front <select id="tk-front"></select></label>
+                    <label>Right <select id="tk-right"></select></label>
                 </div>
 
                 <h2>Operations</h2>
-                <div class="input-group">
-                    <label for="tk-style">Triggers:</label>
-                    <select id="tk-style">
-                        <option value="trigger">R U R' / L' U' L (and inverses)</option>
-                        <option value="sexy">R U R' U' / L' U' L U (repeat)</option>
-                    </select>
-                    <label><input type="checkbox" id="tk-animate" checked> Animate moves</label>
-                </div>
                 <div class="action-buttons op-buttons" id="tk-ops"></div>
                 <div class="input-group">
-                    <input type="text" id="tk-input" placeholder="Or type moves (relative to front), e.g. R U R'" />
+                    <input type="text" id="tk-input" placeholder="Or type moves, e.g. U R U' R'" />
                     <div class="action-buttons">
                         <button id="tk-apply">Apply</button>
                         <button id="tk-undo">Undo</button>
                     </div>
+                    <label><input type="checkbox" id="tk-animate" checked> Animate moves</label>
                 </div>
 
                 <h2>Hint</h2>
                 <div class="action-buttons">
-                    <button id="tk-suggest">Suggest next operation</button>
+                    <button id="tk-suggest">Hint</button>
                     <button id="tk-do-next" class="hidden">Do it</button>
                 </div>
                 <div id="tk-hint" class="tk-hint"></div>
@@ -223,16 +219,16 @@
                 <div id="case-list" class="case-list"></div>
             </div>
         </section>
-        <section id="tk-net" class="content-section mode-takahashi">
+        <section id="tk-net" class="content-section mode-takahashi net-hidden">
             <div class="section-inner">
-                <h2>Input a cube state</h2>
-                <p>Pick a color, then click stickers to paint them. Centers are fixed (U white, D yellow, F green, R pink, B blue, L orange).</p>
+                <h2>Fill the net</h2>
+                <p>Pick a color, then tap stickers. Centers are fixed (U white, D yellow, F green, R pink, B blue, L orange). Press <b>Set</b> to check the cube and start.</p>
                 <div id="net-palette" class="net-palette"></div>
                 <div id="net" class="net"></div>
                 <div class="action-buttons">
-                    <button id="net-from-cube">Copy current cube</button>
                     <button id="net-clear">Clear</button>
-                    <button id="net-use">Use this state</button>
+                    <button id="net-from-cube">Copy current cube</button>
+                    <button id="net-use" class="primary">Set</button>
                 </div>
                 <div id="net-result" class="attempt-result"></div>
             </div>

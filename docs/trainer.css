@@ -87,3 +87,40 @@ body.takahashi .mode-pll, body.pll .mode-takahashi { display: none !important; }
 #tk-controls .info-section {
     color: #111 !important;
 }
+
+/* ---- practice box v2 ---- */
+.net-hidden { display: none !important; }
+.notation-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 4px 16px; padding-left: 18px; }
+.notation-demo { flex-wrap: wrap; }
+.notation-demo button { flex: 0 0 auto; min-width: 48px; }
+.trigger-card h4 { margin: 0 0 8px; color: #303e61; }
+.orient-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.orient-row label { display: flex; flex-direction: column; gap: 4px; font-size: 0.85em; }
+.orient-row select { width: 100%; padding: 8px 6px; border-radius: 8px; font-size: 1em; }
+.op-buttons { display: flex; flex-wrap: wrap; gap: 6px; }
+.op-buttons button { margin: 0; }
+.op-buttons button.face { flex: 1 1 calc(33.33% - 6px); min-width: 0; font-family: ui-monospace, Menlo, monospace; font-size: 1em; }
+.op-buttons button.wide { flex: 1 1 100%; text-align: left; }
+#net-use.primary { background: #303e61 !important; color: #fff !important; font-weight: bold; }
+
+/* ---- mobile ---- */
+html, body { max-width: 100%; overflow-x: hidden; }
+#app > * { min-width: 0; }
+.net { grid-template-columns: repeat(12, minmax(0, 28px)); grid-auto-rows: auto; max-width: 100%; }
+.net .st { aspect-ratio: 1; }
+@media (max-width: 1024px) {
+  #app { grid-template-columns: 1fr !important; padding: 10px; gap: 12px; }
+  #canvas-container { min-height: 0 !important; height: 60vw; max-height: 420px; }
+  #tk-controls { max-height: none; padding: 16px; }
+}
+@media (max-width: 640px) {
+  .mode-bar { flex-direction: column; align-items: stretch; gap: 6px; }
+  .mode-bar select { width: 100%; }
+  .section-inner { padding: 14px !important; }
+  #canvas-container { height: 85vw; }
+  .action-buttons { flex-wrap: wrap; }
+  .action-buttons button { flex: 1 1 auto; }
+  .net { gap: 1px; }
+  .net-palette .sw { width: 30px; height: 30px; }
+  .trigger-cards { grid-template-columns: 1fr; }
+}

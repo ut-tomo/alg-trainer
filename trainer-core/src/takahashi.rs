@@ -41,7 +41,7 @@ impl Stage {
 /// How the learner wants to apply triggers in the first-layer step.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum TriggerStyle {
-    /// R U R' / L' U' L and their inverses R U' R' / L' U L
+    /// U R U' R' / U' L' U L and their inverses R U R' U' / L' U' L U
     Trigger,
     /// repeat R U R' U' (or L' U' L U) until the corner is solved
     Sexy,
@@ -120,10 +120,10 @@ pub fn templates(style: TriggerStyle) -> Vec<(&'static str, &'static str, &'stat
     let mut v = vec![];
     match style {
         TriggerStyle::Trigger => {
-            v.push(("rt", "Right trigger", "R U R'"));
-            v.push(("rti", "Right trigger (inverse)", "R U' R'"));
-            v.push(("lt", "Left trigger", "L' U' L"));
-            v.push(("lti", "Left trigger (inverse)", "L' U L"));
+            v.push(("rt", "Right trigger", "U R U' R'"));
+            v.push(("rti", "Right trigger (inverse)", "R U R' U'"));
+            v.push(("lt", "Left trigger", "U' L' U L"));
+            v.push(("lti", "Left trigger (inverse)", "L' U' L U"));
         }
         TriggerStyle::Sexy => {
             v.push(("rs", "Right trigger + U'", "R U R' U'"));

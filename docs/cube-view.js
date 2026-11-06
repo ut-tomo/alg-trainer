@@ -305,16 +305,44 @@ export function renderState(state) {
 }
 
 let frontIndex = 0;
-// Rotate the camera so face k (0 F, 1 R, 2 B, 3 L) faces the viewer.
+// view = { up: [x,y,z], front: [x,y,z] } in cube coordinates (U = +y, F = +z, R = +x)
+let view = null;
+// Rotate the camera so face k (0 F, 1 R, 2 B, 3 L) faces the viewer, white on top.
 export function setFront(k) {
     frontIndex = k;
+    view = null;
     resetCamera();
 }
 
+// Hold the cube with any face up and any adjacent face toward the viewer.
+export function setView(up, front) {
+    view = { up, front };
+    resetCamera();
+}
+
+function rebuildControls(up) {
+    const target = new THREE.Vector3(0, 0, 0);
+    camera.up.set(up[0], up[1], up[2]);
+    if (controls) controls.dispose();
+    controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.05;
+    controls.target.copy(target);
+}
+
 export function resetCamera() {
-    let [x, z] = [3.2, 4.6];
-    for (let i = 0; i < frontIndex; i++) [x, z] = [z, -x];
-    camera.position.set(x, 6, z);
+    let up = [0, 1, 0], pos;
+    if (view) {
+        const [u, f] = [view.up, view.front];
+        const r = [u[1] * f[2] - u[2] * f[1], u[2] * f[0] - u[0] * f[2], u[0] * f[1] - u[1] * f[0]];
+        up = u;
+        pos = [0, 1, 2].map((i) => r[i] * 3.2 + u[i] * 6 + f[i] * 4.6);
+    } else {
+        let [x, z] = [3.2, 4.6];
+        for (let i = 0; i < frontIndex; i++) [x, z] = [z, -x];
+        pos = [x, 6, z];
+    }
+    camera.position.set(pos[0], pos[1], pos[2]);
+    rebuildControls(up);
     camera.lookAt(0, 0, 0);
-    controls.target.set(0, 0, 0);
 }
