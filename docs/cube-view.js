@@ -132,7 +132,7 @@ function createCubeVisualization(state) {
         0: 0xffffff, // white
         1: 0xFFFF00, // yellow
         2: 0xFF9533, // orange
-        3: 0xFF4D6D, // stronger pink
+        3: 0xE53935, // red
         4: 0x00FF00, // vivid yellow-green
         5: 0x42A5F5, // blue
     };

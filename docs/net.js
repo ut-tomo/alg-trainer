@@ -12,8 +12,8 @@ const EDGE_MAPPING = [
     ['front', 'left'], ['front', 'right'], ['back', 'right'], ['back', 'left'],
     ['bottom', 'front'], ['bottom', 'right'], ['bottom', 'back'], ['bottom', 'left'],
 ];
-export const COLOR_CSS = ['#ffffff', '#ffff00', '#ff9533', '#ff4d6d', '#00e000', '#42a5f5'];
-export const COLOR_NAME = ['white', 'yellow', 'orange', 'pink', 'green', 'blue'];
+export const COLOR_CSS = ['#ffffff', '#ffff00', '#ff9533', '#e53935', '#00e000', '#42a5f5'];
+export const COLOR_NAME = ['white', 'yellow', 'orange', 'red', 'green', 'blue'];
 
 // cubie coordinate of sticker (row r, col c) on a face, as seen in the net
 export function netCoord(face, r, c) {
