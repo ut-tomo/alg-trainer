@@ -1,1 +1,107 @@
+# ========================================
+# Rust / Cargo
+# ========================================
+# Build artifacts and logs
+/target/
+# Cargo.lock は実行可能ファイルを含むプロジェクトなのでコミットする
+# /Cargo.lock
+**/*.rs.bk
+*.rlib
+*.rmeta
+*.dSYM/
+*.pdb
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Generated documentation
+/doc/
+
+# ========================================
+# WASM / Trunk
+# ========================================
+/dist/
+/pkg/
+wasm-pack.log
+*.wasm
+*.wasm.map
+.trunk/
+*.wasm-bindgen.js
+*.wasm-bindgen.d.ts
+
+# ========================================
+# IDE / Editor
+# ========================================
+# VSCode
+.vscode/
+/.idea/
+*.code-workspace
+
+# JetBrains (CLion, RustRover)
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# ========================================
+# macOS / Finder
+# ========================================
 .DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+__MACOSX/
+
+# ========================================
+# Logs / Temp
+# ========================================
+*.log
+*.tmp
+*.swp
+*.swo
+*.bak
+*~
+
+# ========================================
+# Node.js (for wasm + web front)
+# ========================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ========================================
+# Python / Notebooks (optional future tools)
+# ========================================
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+
+# ========================================
+# Environment / Secrets
+# ========================================
+.env
+.env.*
+.envrc
+secrets.json
+credentials.json
+
+# ========================================
+# Local build / test / benchmark outputs
+# ========================================
+/benches/**/*.csv
+/tests/**/*.out
+/examples/**/*.out
+*.profraw
+*.profdata
+*.gcda
+*.gcno
+
+# ========================================
+# Git / Backup
+# ========================================
+*.orig
+*.rej
+*~
+*.bak

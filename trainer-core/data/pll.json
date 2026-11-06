@@ -1,0 +1,28 @@
+{
+  "id": "pll",
+  "name": "PLL",
+  "description": "Permutation of the Last Layer (CFOP step 4). 21 cases. Hold the case with white (U) on top.",
+  "cases": [
+    {"id": "Aa", "group": "Corners only", "alg": "R' F R' B2 R F' R' B2 R2"},
+    {"id": "Ab", "group": "Corners only", "alg": "R2 B2 R F R' B2 R F' R"},
+    {"id": "E",  "group": "Corners only", "alg": "R B' R' F R B R' F' R B R' F R B' R' F'"},
+    {"id": "Ua", "group": "Edges only", "alg": "R U' R U R U R U' R' U' R2"},
+    {"id": "Ub", "group": "Edges only", "alg": "R2 U R U R' U' R' U' R' U R'"},
+    {"id": "H",  "group": "Edges only", "alg": "R2 U2 R U2 R2 U2 R2 U2 R U2 R2"},
+    {"id": "Z",  "group": "Edges only", "alg": "R' U' R U' R U R U' R' U R U R2 U' R' U"},
+    {"id": "T",  "group": "Adjacent swap", "alg": "R U R' U' R' F R2 U' R' U' R U R' F'"},
+    {"id": "F",  "group": "Adjacent swap", "alg": "R' U' F' R U R' U' R' F R2 U' R' U' R U R' U R"},
+    {"id": "Ja", "group": "Adjacent swap", "alg": "R' U L' U2 R U' R' U2 R L"},
+    {"id": "Jb", "group": "Adjacent swap", "alg": "R U R' F' R U R' U' R' F R2 U' R'"},
+    {"id": "Ra", "group": "Adjacent swap", "alg": "R U' R' U' R U R D R' U' R D' R' U2 R'"},
+    {"id": "Rb", "group": "Adjacent swap", "alg": "R2 F R U R U' R' F' R U2 R' U2 R"},
+    {"id": "V",  "group": "Diagonal swap", "alg": "R' U R' U' B' R' B2 U' B' U B' R B R"},
+    {"id": "Y",  "group": "Diagonal swap", "alg": "F R U' R' U' R U R' F' R U R' U' R' F R F'"},
+    {"id": "Na", "group": "Diagonal swap", "alg": "R U R' U R U R' F' R U R' U' R' F R2 U' R' U2 R U' R'"},
+    {"id": "Nb", "group": "Diagonal swap", "alg": "R' U R U' R' F' U' F R U R' F R' F' R U' R"},
+    {"id": "Ga", "group": "G perms", "alg": "R2 U R' U R' U' R U' R2 U' D R' U R D'"},
+    {"id": "Gb", "group": "G perms", "alg": "R' U' R U D' R2 U R' U R U' R U' R2 D"},
+    {"id": "Gc", "group": "G perms", "alg": "R2 U' R U' R U R' U R2 U D' R U' R' D"},
+    {"id": "Gd", "group": "G perms", "alg": "R U R' U' D R2 U' R U' R' U R' U R2 D'"}
+  ]
+}

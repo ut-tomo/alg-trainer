@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rubik's Cube Alg Trainer</title>
+    <meta name="description" content="Memorize Rubik's Cube algorithms with spaced repetition">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="trainer.css">
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+        }
+    }
+    </script>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-content">
+            <h1 class="site-title">Rubik's Cube Alg Trainer</h1>
+        </div>
+        <nav class="site-nav">
+            <a href="#about">About</a>
+            <a href="#train">Train</a>
+            <a href="#cases">Cases</a>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <section id="about" class="content-section">
+            <div class="section-inner">
+                <h2>About</h2>
+                <p>
+                    A trainer for memorizing Rubik's Cube algorithms with spaced repetition (SM-2).
+                    The cube shows a case. Recall the algorithm that solves it, then reveal the answer and rate how well you knew it.
+                    Cases you struggle with come back sooner, and cases you know well come back later.
+                </p>
+                <p>
+                    Notation and colors match the <a href="https://ut-tomo.github.io/rubik-playground/">Rubik's Cube Playground</a>:
+                    algorithms use face turns only (<span class="notation-snippet">U D L R F B</span>), and the U face is white.
+                    Progress is saved in your browser.
+                </p>
+                <p>
+                    Keyboard: <span class="notation-snippet">Space</span> reveals the alg,
+                    <span class="notation-snippet">1</span>–<span class="notation-snippet">4</span> rate it Again / Hard / Good / Easy.
+                </p>
+            </div>
+        </section>
+
+        <br>
+        <section id="train" class="content-section demo-section">
+            <div class="section-inner">
+                <h2>Train</h2>
+                <p id="set-description"></p>
+            </div>
+        </section>
+
+        <div id="loading">
+            <h1>Loading Alg Trainer...</h1>
+            <p id="loading-status">Initializing...</p>
+            <div style="margin-top: 20px;">
+                <div style="width: 300px; height: 4px; background: rgba(0,0,0,0.1); border-radius: 2px; overflow: hidden;">
+                    <div id="progress-bar" style="width: 0%; height: 100%; background: #3498db; transition: width 0.3s;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="app">
+            <div id="canvas-container"></div>
+
+            <div id="controls">
+                <h1>Let's Train</h1>
+
+                <div class="input-group">
+                    <select id="set-select"></select>
+                </div>
+
+                <div id="status">
+                    <strong>Due:</strong> <span id="stat-due">0</span> ·
+                    <strong>New:</strong> <span id="stat-new">0</span> ·
+                    <strong>Learned:</strong> <span id="stat-learned">0</span> / <span id="stat-total">0</span>
+                </div>
+
+                <h2>Case</h2>
+                <div class="info-section">
+                    <div id="case-name" class="case-name">-</div>
+                    <div id="case-group" class="case-group"></div>
+                    <div id="case-alg" class="case-alg hidden"></div>
+                </div>
+
+                <div class="action-buttons" id="reveal-row">
+                    <button id="reveal-btn">Reveal (Space)</button>
+                </div>
+                <div class="action-buttons grade-buttons hidden" id="grade-row">
+                    <button data-grade="0" class="grade-again">Again (1)</button>
+                    <button data-grade="1" class="grade-hard">Hard (2)</button>
+                    <button data-grade="2" class="grade-good">Good (3)</button>
+                    <button data-grade="3" class="grade-easy">Easy (4)</button>
+                </div>
+
+                <h2>Check</h2>
+                <div class="input-group">
+                    <input type="text" id="attempt-input" placeholder="Type your alg, e.g. R U R' U'" />
+                    <div class="action-buttons">
+                        <button id="attempt-btn">Apply to case</button>
+                        <button id="show-case-btn">Show case</button>
+                    </div>
+                    <div id="attempt-result" class="attempt-result"></div>
+                </div>
+
+                <h2>Options</h2>
+                <div class="action-buttons">
+                    <button id="camera-btn">Reset view</button>
+                    <button id="reset-btn">Reset progress</button>
+                </div>
+            </div>
+        </div>
+
+        <section id="cases" class="content-section">
+            <div class="section-inner">
+                <h2>Cases</h2>
+                <p>Click a case to drill it. The color shows how well it's learned.</p>
+                <div id="case-list" class="case-list"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p class="tech-stack-label">Powered by</p>
+        <div class="tech-stack">
+            <span>Rust</span>
+            <span>WebAssembly</span>
+            <span>Three.js</span>
+        </div>
+    </footer>
+
+    <script type="module">
+        import { main } from './trainer-app.js';
+        main();
+    </script>
+</body>
+</html>

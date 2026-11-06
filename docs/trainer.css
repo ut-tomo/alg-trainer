@@ -1,0 +1,25 @@
+/* trainer.css: additions on top of the playground's style.css */
+.hidden { display: none !important; }
+#set-select { width: 100%; padding: 10px; border-radius: 8px; font-size: 1em; }
+.case-name { font-size: 2em; font-weight: bold; color: #303e61; }
+.case-group { color: #6c757d; margin-bottom: 6px; }
+.case-alg { font-family: ui-monospace, Menlo, monospace; font-size: 1.15em; color: #222; word-break: break-word; }
+.grade-buttons button { padding: 10px 4px; font-size: 0.9em; }
+.grade-again { background: #e74c3c !important; color: #fff !important; }
+.grade-hard  { background: #f39c12 !important; color: #fff !important; }
+.grade-good  { background: #27ae60 !important; color: #fff !important; }
+.grade-easy  { background: #3498db !important; color: #fff !important; }
+.attempt-result { font-weight: bold; min-height: 1.2em; }
+.attempt-result.ok { color: #27ae60; }
+.attempt-result.ng { color: #e74c3c; }
+.case-list h3 { margin: 14px 0 6px; color: #303e61; }
+.case-chip { min-width: 56px; margin: 3px; padding: 8px 10px; color: #222 !important; border: 2px solid transparent; }
+.case-chip.new      { background: #dee2e6 !important; }
+.case-chip.again    { background: #f5b7b1 !important; }
+.case-chip.learning { background: #fad7a0 !important; }
+.case-chip.learned  { background: #a9dfbf !important; }
+.case-chip.current  { border-color: #303e61 !important; }
+@media (max-width: 900px) {
+  #app { grid-template-columns: 1fr !important; }
+  #canvas-container { min-height: 360px !important; }
+}

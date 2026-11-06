@@ -1,0 +1,14 @@
+[alias]
+# 便利なエイリアス
+check-all = "check --workspace --all-targets"
+test-all = "test --workspace"
+fmt-check = "fmt --all -- --check"
+clippy-all = "clippy --workspace --all-targets -- -D warnings"
+
+# WASM関連
+wasm-build = "build --package trainer-wasm --target wasm32-unknown-unknown --release"
+wasm-test = "test --package trainer-wasm --target wasm32-unknown-unknown"
+
+[build]
+# ビルドの並列化
+jobs = 4

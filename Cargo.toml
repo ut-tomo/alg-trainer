@@ -1,0 +1,19 @@
+[workspace]
+members = [
+  "cube-core",
+  "trainer-core",
+  "trainer-wasm",
+]
+resolver = "2"
+
+[workspace.package]
+edition = "2021"
+license = "MIT"
+description = "A Rust + WebAssembly spaced-repetition trainer for Rubik's Cube algorithms."
+authors = ["ut-tomo"]
+repository = "https://github.com/ut-tomo/alg-trainer"
+
+[workspace.dependencies]
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+thiserror = "1.0"
