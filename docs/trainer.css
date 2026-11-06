@@ -126,9 +126,6 @@ html, body { max-width: 100%; overflow-x: hidden; }
 }
 
 /* ---- v3: simpler header, big trigger buttons ---- */
-.site-header { position: static !important; backdrop-filter: none !important; background: #303e61 !important; padding: 14px 0 !important; }
-.site-title { background: none !important; -webkit-text-fill-color: #fff !important; color: #fff !important; font-size: 1.8em !important; margin: 0 !important; }
-@media (max-width: 640px) { .site-title { font-size: 1.3em !important; } }
 .op-buttons button.trigger { flex: 1 1 calc(50% - 6px); min-width: 0; padding: 16px 6px; font-size: 1.1em; font-weight: bold; white-space: pre-line; line-height: 1.4; }
 .notation-list.triggers { grid-template-columns: 1fr; font-size: 1.1em; }
 .note { color: #6c757d; font-size: 0.9em; }
