@@ -346,3 +346,29 @@ export function resetCamera() {
     rebuildControls(up);
     camera.lookAt(0, 0, 0);
 }
+
+const FACE_AXIS = { U: [0, 1, 0], D: [0, -1, 0], R: [1, 0, 0], L: [-1, 0, 0], F: [0, 0, 1], B: [0, 0, -1] };
+// Turn one layer of the currently drawn cube smoothly, e.g. "R", "U'", "F2".
+// Resolves when the turn ends; call renderState with the new state afterwards.
+export function animateMove(move, ms = 220) {
+    const n = FACE_AXIS[move[0]];
+    if (!cubeGroup || !n) return Promise.resolve();
+    const axis = new THREE.Vector3(...n);
+    const turns = move.includes('2') ? 2 : 1;
+    const angle = (move.includes("'") ? 1 : -1) * turns * Math.PI / 2;
+    const pivot = new THREE.Group();
+    cubeGroup.add(pivot);
+    for (const c of [...cubeGroup.children]) {
+        if (c !== pivot && c.position.dot(axis) > 0.5) pivot.attach(c);
+    }
+    const dur = ms * (turns === 2 ? 1.5 : 1);
+    const t0 = performance.now();
+    return new Promise((resolve) => {
+        (function step(now) {
+            const t = Math.min(1, (now - t0) / dur);
+            const e = t < 0.5 ? 2 * t * t : 1 - (-2 * t + 2) ** 2 / 2; // ease in-out
+            pivot.quaternion.setFromAxisAngle(axis, angle * e);
+            if (t < 1) requestAnimationFrame(step); else resolve();
+        })(t0);
+    });
+}

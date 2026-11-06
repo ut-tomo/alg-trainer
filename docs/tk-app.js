@@ -1,5 +1,5 @@
 // tk-app.js: New Takahashi practice mode
-import { renderState, setView } from './cube-view.js';
+import { renderState, setView, animateMove } from './cube-view.js';
 import { FACES, COLOR_CSS, COLOR_NAME, netFromState, stateFromNet } from './net.js';
 
 const $ = (id) => document.getElementById(id);
@@ -46,9 +46,10 @@ async function apply(alg, label) {
         const before = state;
         if ($('tk-animate').checked) {
             for (const m of alg.trim().split(/\s+/)) {
+                await animateMove(m);
                 state = wasm.applyTo(state, m);
                 renderState(state);
-                await sleep(220);
+                await sleep(60);
             }
         } else {
             state = wasm.applyTo(state, alg);
