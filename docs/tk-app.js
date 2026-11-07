@@ -190,14 +190,39 @@ function suggest() {
     if (isFace) setHold(0, top === 0 ? front : 4);
     else setHold(0, FRONT_COLOR[step.front]);
     const relAlg = isFace ? step.alg : step.rel;
-    const rest = s.plan.slice(1).map((o) => o.name.replace(/ \[front .\]$/, '')).join(' → ');
-    out.innerHTML = `<div class="next">Next: ${escape(step.name.replace(/ \[front .\]$/, ''))}</div>`
-        + `<div>Hold: <b>${holdLabel()}</b> · moves: <code>${escape(relAlg)}</code></div>`
-        + `<div>${escape(s.stage_label)}: ${s.plan.length} operation(s) to the next milestone.</div>`
-        + (rest ? `<details><summary>Show the rest</summary>${escape(rest)}</details>` : '');
-    $('tk-do-next').classList.remove('hidden');
+    const name = step.name.replace(/ \[front .\]$/, '');
+    const chip = (label, c) => `<span class="hold-chip"><span class="sw" style="background:${COLOR_CSS[c]}"></span>${label}: <b>${COLOR_NAME[c]}</b></span>`;
+    out.innerHTML = `<div class="hint-row"><span class="hint-k">1. Hold</span>${chip('Top', top)}${chip('Front', front)}${chip('Right', rightColor())}</div>`
+        + `<div class="hint-row"><span class="hint-k">2. Do</span><button class="hint-op" id="tk-hint-op" title="Press to apply">${escape(name === relAlg ? relAlg : `${name}: ${relAlg}`)}</button><span class="hint-tap">← press to apply</span></div>`
+        + `<div class="hint-row"><span class="hint-k">3. What it does</span><span>${escape(describe(step, s))}</span></div>`
+        + `<div class="hint-stage">${escape(s.stage_label)} · ${s.plan.length} operation(s) left to the next milestone</div>`;
+    $('tk-hint-op').onclick = () => pending && apply(pending.alg, pending.name);
     const opId = step.id.startsWith('U') ? 'm' + step.id : step.id.replace(/\d$/, '');
     document.querySelectorAll('#tk-ops button').forEach((b) => b.classList.toggle('suggested', b.dataset.op === opId));
+}
+
+// plain-language effect of the suggested operation
+function describe(step, s) {
+    const id = step.id.replace(/\d$/, '');
+    const base = {
+        rt: 'Puts the yellow corner sitting above the front-right slot down into that slot. If it comes back up twisted, just repeat.',
+        lt: 'Puts the yellow corner sitting above the front-left slot down into that slot. If it comes back up twisted, just repeat.',
+        rs: 'Right trigger (ending with U\'): moves the front-right corner down into its slot.',
+        ls: 'Left trigger (ending with U): moves the front-left corner down into its slot.',
+        e2r: 'Takes the top-front edge and inserts it into the middle layer on the right side.',
+        e2l: 'Takes the top-front edge and inserts it into the middle layer on the left side.',
+        tc: 'Flips top edges to make (part of) the white cross on top. May need it up to 3 times.',
+        sune: 'Twists the top corners so more of the top face becomes white. Repeat as needed.',
+        cp: 'Swaps the two front top corners, so the top corners end up in their right places.',
+        ep: 'Cycles three top edges (keeps the back edge), so the top edges end up in their right places.',
+    }[id];
+    if (base) return base;
+    if (step.id.startsWith('U')) {
+        return s.stage === 'FirstLayer' ? 'Turns the top layer to bring a yellow corner above its slot.'
+            : s.stage === 'SecondLayer' ? 'Turns the top layer to line up an edge with its center color.'
+            : 'Turns the top layer to line things up for the next step.';
+    }
+    return 'Face turn for the bottom cross: moves a cross edge toward its place next to its center color.';
 }
 
 const escape = (t) => t.replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));

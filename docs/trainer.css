@@ -147,3 +147,11 @@ html, body { max-width: 100%; overflow-x: hidden; }
 
 /* mode picker lives in the page, separate from the header band */
 .mode-bar { margin: 20px 20px 0; border-radius: 12px; background: #E9ECEF !important; }
+.tk-hint .hint-row { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin: 6px 0; }
+.tk-hint .hint-k { min-width: 7.5em; font-weight: bold; color: #303e61; }
+.tk-hint .hold-chip { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border: 1px solid #ced4da; border-radius: 12px; background: #f8f9fa; }
+.tk-hint .hold-chip .sw { width: 14px; height: 14px; border: 1px solid #333; border-radius: 3px; }
+.tk-hint .hint-op { font-family: ui-monospace, monospace; font-size: 1.05em; padding: 6px 14px; background: #303e61; color: #fff; border: none; border-radius: 6px; cursor: pointer; }
+.tk-hint .hint-op:hover { background: #45568a; }
+.tk-hint .hint-tap { font-size: 0.85em; color: #6c757d; }
+.tk-hint .hint-stage { font-size: 0.85em; color: #6c757d; margin-top: 4px; }
