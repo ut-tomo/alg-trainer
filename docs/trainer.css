@@ -96,7 +96,7 @@ body.takahashi .mode-pll, body.pll .mode-takahashi { display: none !important; }
 .trigger-card h4 { margin: 0 0 8px; color: #303e61; }
 .orient-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
 .orient-row label { display: flex; flex-direction: column; gap: 4px; font-size: 0.85em; }
-.orient-row select { width: 100%; padding: 8px 6px; border-radius: 8px; font-size: 1em; }
+.orient-row select { width: 100%; padding: 8px 6px 8px 22px; border: 1px solid #868e96; border-radius: 8px; font-size: 1em; }
 .op-buttons { display: flex; flex-wrap: wrap; gap: 6px; }
 .op-buttons button { margin: 0; }
 .op-buttons button.face { flex: 1 1 calc(33.33% - 6px); min-width: 0; font-family: ui-monospace, Menlo, monospace; font-size: 1em; }
@@ -148,10 +148,13 @@ html, body { max-width: 100%; overflow-x: hidden; }
 /* mode picker lives in the page, separate from the header band */
 .mode-bar { margin: 20px 20px 0; border-radius: 12px; background: #E9ECEF !important; }
 .tk-hint .hint-row { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin: 6px 0; }
-.tk-hint .hint-k { min-width: 7.5em; font-weight: bold; color: #303e61; }
+.tk-hint .hint-k { min-width: 4.5em; font-weight: bold; color: #303e61; }
 .tk-hint .hold-chip { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border: 1px solid #ced4da; border-radius: 12px; background: #f8f9fa; }
 .tk-hint .hold-chip .sw { width: 14px; height: 14px; border: 1px solid #333; border-radius: 3px; }
 .tk-hint .hint-op { font-family: ui-monospace, monospace; font-size: 1.05em; padding: 6px 14px; background: #303e61; color: #fff; border: none; border-radius: 6px; cursor: pointer; }
 .tk-hint .hint-op:hover { background: #45568a; }
 .tk-hint .hint-tap { font-size: 0.85em; color: #6c757d; }
 .tk-hint .hint-stage { font-size: 0.85em; color: #6c757d; margin-top: 4px; }
+
+.tk-hint .hold-chips { display: flex; flex-wrap: nowrap; gap: 6px; }
+.tk-hint .hold-chip { white-space: nowrap; font-size: 0.9em; }

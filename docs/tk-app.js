@@ -97,7 +97,7 @@ function fillSelect(id, options, value) {
         el.appendChild(o);
     }
     el.value = value;
-    el.style.borderLeft = `14px solid ${COLOR_CSS[value]}`;
+    el.style.boxShadow = `inset 14px 0 0 ${COLOR_CSS[value]}, inset 15px 0 0 #868e96`;
 }
 const opposite = (c) => c ^ 1;
 function setHold(t, f) {
@@ -192,8 +192,8 @@ function suggest() {
     const relAlg = isFace ? step.alg : step.rel;
     const name = step.name.replace(/ \[front .\]$/, '');
     const chip = (label, c) => `<span class="hold-chip"><span class="sw" style="background:${COLOR_CSS[c]}"></span>${label}: <b>${COLOR_NAME[c]}</b></span>`;
-    out.innerHTML = `<div class="hint-row"><span class="hint-k">1. Hold</span>${chip('Top', top)}${chip('Front', front)}${chip('Right', rightColor())}</div>`
-        + `<div class="hint-row"><span class="hint-k">2. Do</span><button class="hint-op" id="tk-hint-op" title="Press to apply">${escape(name === relAlg ? relAlg : `${name}: ${relAlg}`)}</button><span class="hint-tap">← press to apply</span></div>`
+    out.innerHTML = `<div class="hint-row"><span class="hint-k">1. Hold</span><span class="hold-chips">${chip('Top', top)}${chip('Front', front)}${chip('Right', rightColor())}</span></div>`
+        + `<div class="hint-row"><span class="hint-k">2. Do</span><button class="hint-op" id="tk-hint-op" title="Press to apply">${escape(name === relAlg ? relAlg : `${name}: ${relAlg}`)}</button></div>`
         + `<div class="hint-row"><span class="hint-k">3. What it does</span><span>${escape(describe(step, s))}</span></div>`
         + `<div class="hint-stage">${escape(s.stage_label)} · ${s.plan.length} operation(s) left to the next milestone</div>`;
     $('tk-hint-op').onclick = () => pending && apply(pending.alg, pending.name);
